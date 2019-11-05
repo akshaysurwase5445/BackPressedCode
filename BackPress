@@ -1,0 +1,141 @@
+               ********************* Back press ************************
+               
+               
+               boolean doubleBackToExitPressedOnce = false;
+               
+               
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            LayoutInflater factory = LayoutInflater.from(this);
+            final View deleteDialogView1 = factory.inflate(R.layout.exit_custom_dialog, null);
+            final android.support.v7.app.AlertDialog deleteDialog1 = new android.support.v7.app.AlertDialog.Builder(this).create();
+            deleteDialog1.setView(deleteDialogView1);
+            deleteDialogView1.findViewById(R.id.yes_btn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+            deleteDialogView1.findViewById(R.id.no_btn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteDialog1.dismiss();
+                }
+            });
+
+            deleteDialog1.show();
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else if (!doubleBackToExitPressedOnce) {
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit.", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        } else {
+            super.onBackPressed();
+            //Toast.makeText(this, "You press Back Button", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+                               ****************** XMLfile ***************************
+                               
+   <?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/width_100"
+            android:layout_height="@dimen/height_72"
+            android:scaleType="centerInside"
+            android:layout_margin="10dp"
+            android:src="@drawable/app_logo"></ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:padding="5dp"
+            android:text="Dear User"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:padding="5dp"
+            android:text="Do you want to Exit ?"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18dp" />
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="@dimen/margin_5"
+            android:background="@color/colorPrimary"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/yes_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_border_blue_filled"
+                android:text="YES"
+                android:textSize="17dp"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/margin_10"
+
+                android:textAllCaps="false"
+                />
+
+            <Button
+                android:id="@+id/no_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_border_blue_filled"
+                android:text="NO"
+                android:textSize="17dp"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/margin_10"
+                android:textAllCaps="false"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>                            
+                               
+                               
